@@ -1,0 +1,48 @@
+{
+  "name": "brikl-task",
+  "version": "1.0.0",
+  "description": "",
+  "author": "pitsanujill12@gmail.com",
+  "license": "ISC",
+  "main": "src/main.ts",
+  "engines": {
+    "node": "14.17"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "dev": "ts-node-dev --debug --no-deps --respawn --transpile-only --tree-kill src/main.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "node dist/src/main.js",
+    "start:prod": "node src/main.js",
+    "lint": "eslint --max-warnings 10 .",
+    "lint:fix": "eslint --max-warnings 10 . --fix",
+    "test": "TZ='UTC' jest --all"
+  },
+  "dependencies": {
+    "@prisma/client": "4.0.0",
+    "apollo-server": "3.9.0",
+    "dotenv": "14.2.0",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "1.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "27.4.0",
+    "@typescript-eslint/eslint-plugin": "5.30.6",
+    "@typescript-eslint/parser": "5.30.6",
+    "eslint": "8.20.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-prettier": "4.1.0",
+    "jest": "27.4.7",
+    "jest-junit": "13.0.0",
+    "lint-staged": "12.2.1",
+    "prettier": "2.5.1",
+    "prisma": "4.0.0",
+    "rimraf": "3.0.2",
+    "ts-jest": "27.1.3",
+    "ts-node-dev": "1.1.8",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.3.0",
+    "typescript": "4.7.4"
+  }
+}

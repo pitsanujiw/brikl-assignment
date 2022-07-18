@@ -1,0 +1,8 @@
+dist
+external-migration
+init-docker-compose
+scripts
+
+__snapshots__
+
+node_modules
