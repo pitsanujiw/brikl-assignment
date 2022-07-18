@@ -17,7 +17,10 @@
     "start:prod": "node src/main.js",
     "lint": "eslint --max-warnings 10 .",
     "lint:fix": "eslint --max-warnings 10 . --fix",
-    "test": "TZ='UTC' jest --all"
+    "test": "TZ='UTC' jest --all",
+    "migrate:db:reset": "npx prisma migrate reset --force",
+    "migrate:db:latest": "npx prisma migrate dev",
+    "migrate:db:seed": "npx prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "4.0.0",

@@ -1,11 +1,41 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider             = "postgresql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Task {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  subTasks SubTask[]
+
+  @@map("task")
+}
+
+model SubTask {
+  id       Int        @id @default(autoincrement())
+  title    String
+  status   TaskStatus
+  taskId   Int        @map("task_id")
+  Task     Task       @relation(fields: [taskId], references: [id])
+  priority Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("sub_task")
+}
+
+enum TaskStatus {
+  IN_PROGRESS
+  DONE
 }
