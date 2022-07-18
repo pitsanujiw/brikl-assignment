@@ -8,7 +8,9 @@ async function bootstrap() {
 
   const app = new ApolloServer({ schema })
 
-  await app.listen({ port: process.env.PORT })
+  const port = process.env.PORT || 3000
+
+  await app.listen({ port })
 
   console.log(`Server ready at: http://localhost:${process.env.PORT}`)
 }
