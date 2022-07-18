@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: 'postgres'
+    container_name: 'brikl_assignment_postgres'
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_DB: brikl-assignment
+      POSTGRES_USER: brikl-dev
+      POSTGRES_PASSWORD: brikl-dev
+    volumes:
+      - ./db/data:/var/lib/postgresql/brikl-assignment-data
+    networks:
+      - sme_default
+networks:
+  sme_default:
+    external: true

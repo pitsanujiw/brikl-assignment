@@ -5,3 +5,4 @@
 **/dist
 **/junit.xml
 node_modules
+/db

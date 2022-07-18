@@ -11,6 +11,7 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "dev": "ts-node-dev --debug --no-deps --respawn --transpile-only --tree-kill src/main.ts",
+    "docker-compose": "docker compose up -d",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "node dist/src/main.js",
     "start:prod": "node src/main.js",
