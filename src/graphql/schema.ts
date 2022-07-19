@@ -2,6 +2,7 @@ import { buildSchema, registerEnumType } from 'type-graphql'
 
 import { Direction, TaskStatus } from '../types'
 import { TaskResolver } from '../controllers/task'
+import { SubTaskResolver } from '../controllers/sub-task'
 
 function registerAllEnumTypes() {
   registerEnumType(TaskStatus, {
@@ -16,7 +17,6 @@ export function buildSchemaApp() {
   registerAllEnumTypes()
 
   return buildSchema({
-    resolvers: [TaskResolver],
-    scalarsMap: [],
+    resolvers: [TaskResolver, SubTaskResolver],
   })
 }
