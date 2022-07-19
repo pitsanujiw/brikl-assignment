@@ -1,21 +1,30 @@
-import { Field, ID as GraphqlId, ObjectType } from 'type-graphql'
+import { Field, ObjectType } from 'type-graphql'
 
 import { ID } from '../types'
+import { BaseSchema } from './base-schema'
 import { SubTask } from './subtask'
 
 @ObjectType()
-export class Task {
-  constructor(id: ID, title: string, subTasks: ReadonlyArray<SubTask>) {
-    this.id = id
+export class Task extends BaseSchema {
+  constructor(
+    id: ID,
+    title: string,
+    subTasks: ReadonlyArray<SubTask>,
+    createdAt: Date,
+    updatedAt: Date,
+    deleted: boolean,
+  ) {
+    super(id, createdAt, updatedAt)
     this.title = title
     this.subTasks = subTasks
+    this.deleted = deleted
   }
-
-  @Field(() => GraphqlId)
-  id: ID
 
   @Field()
   title: string
+
+  @Field(() => Boolean)
+  deleted: boolean
 
   @Field(() => [SubTask])
   subTasks: ReadonlyArray<SubTask>
