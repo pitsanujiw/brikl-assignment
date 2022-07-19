@@ -46,13 +46,11 @@ describe('SubTaskResolver()', () => {
       const actual = await subTaskResolver.createSubTask({
         title: '__TITLE__',
         taskId: 1,
-        status: TaskStatus.IN_PROGRESS,
       })
       expect(actual).toEqual(expected)
       expect(subTaskService.createSubTask).toHaveBeenCalledWith({
         title: '__TITLE__',
         taskId: 1,
-        status: TaskStatus.IN_PROGRESS,
       })
     })
   })

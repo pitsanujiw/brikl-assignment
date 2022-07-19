@@ -27,6 +27,7 @@ export async function getTasksPagination(offset: number, limit: number): Promise
         updatedAt: true,
         deleted: true,
         priority: true,
+        status: true,
         subTasks: {
           where: {
             deleted: false,

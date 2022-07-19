@@ -1,6 +1,6 @@
 import { Field, ObjectType } from 'type-graphql'
 
-import { ID } from '../types'
+import { ID, TaskStatus } from '../types'
 import { BaseSchema } from './base-schema'
 import { SubTask } from './sub-task'
 
@@ -11,6 +11,7 @@ export class Task extends BaseSchema {
     title: string,
     subTasks: ReadonlyArray<SubTask>,
     createdAt: Date,
+    status: TaskStatus,
     updatedAt: Date,
     deleted: boolean,
   ) {
@@ -18,6 +19,7 @@ export class Task extends BaseSchema {
     this.title = title
     this.subTasks = subTasks
     this.deleted = deleted
+    this.status = status
   }
 
   @Field()
@@ -28,6 +30,9 @@ export class Task extends BaseSchema {
 
   @Field(() => [SubTask])
   subTasks: ReadonlyArray<SubTask>
+
+  @Field(() => TaskStatus)
+  status: TaskStatus
 }
 
 @ObjectType()

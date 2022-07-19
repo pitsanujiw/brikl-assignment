@@ -10,11 +10,11 @@ datasource db {
 }
 
 model Task {
-  id    Int    @id @default(autoincrement())
-  title String
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id        Int        @id @default(autoincrement())
+  title     String
+  status    TaskStatus @default(CREATED)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
   priority  Int
 
   deleted Boolean @default(false)
@@ -28,7 +28,7 @@ model SubTask {
   id       Int        @id @default(autoincrement())
   taskId   Int        @map("task_id")
   title    String
-  status   TaskStatus
+  status   TaskStatus @default(CREATED)
   Task     Task       @relation(fields: [taskId], references: [id])
   priority Int
   deleted  Boolean    @default(false)

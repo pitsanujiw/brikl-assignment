@@ -37,7 +37,6 @@ describe('domain/sub-task', () => {
       const actual = await subTaskService.createSubTask({
         title: '__TITLE__',
         taskId: 1,
-        status: TaskStatus.IN_PROGRESS,
       })
 
       expect(actual).toEqual(expected)
@@ -48,7 +47,7 @@ describe('domain/sub-task', () => {
         },
       })
       expect(prismaMock.subTask.create).toHaveBeenCalledWith({
-        data: { priority: 1, status: 'IN_PROGRESS', taskId: 1, title: '__TITLE__' },
+        data: { priority: 1, taskId: 1, title: '__TITLE__' },
       })
     })
   })
@@ -80,6 +79,7 @@ describe('domain/sub-task', () => {
       }
 
       prismaMock.subTask.update.mockImplementationOnce(() => Promise.resolve(expected) as any)
+      prismaMock.subTask.findMany.mockImplementationOnce(() => Promise.resolve([]) as any)
 
       const actual = await subTaskService.updateSubTaskByPartialSubTask({
         id: 1,
@@ -92,6 +92,58 @@ describe('domain/sub-task', () => {
       expect(prismaMock.subTask.update).toHaveBeenCalledWith({
         data: { id: 1, status: 'DONE', taskId: 1, title: '__TITLE__' },
         where: { id: 1 },
+      })
+      expect(prismaMock.subTask.findMany).toHaveBeenCalledWith({
+        where: {
+          taskId: 1,
+          deleted: false,
+        },
+        select: {
+          status: true,
+        },
+      })
+      expect(prismaMock.task.update).not.toHaveBeenCalled()
+    })
+
+    it('should return update sub task and update status task', async () => {
+      const expected = {
+        id: 1,
+        title: '__TITLE__',
+        taskId: 1,
+        status: TaskStatus.DONE,
+      }
+
+      prismaMock.subTask.update.mockImplementationOnce(() => Promise.resolve(expected) as any)
+      prismaMock.subTask.findMany.mockImplementationOnce(() => Promise.resolve([{ status: TaskStatus.DONE }]) as any)
+
+      const actual = await subTaskService.updateSubTaskByPartialSubTask({
+        id: 1,
+        title: '__TITLE__',
+        taskId: 1,
+        status: TaskStatus.DONE,
+      })
+
+      expect(actual).toEqual(expected)
+      expect(prismaMock.subTask.update).toHaveBeenCalledWith({
+        data: { id: 1, status: 'DONE', taskId: 1, title: '__TITLE__' },
+        where: { id: 1 },
+      })
+      expect(prismaMock.subTask.findMany).toHaveBeenCalledWith({
+        where: {
+          taskId: 1,
+          deleted: false,
+        },
+        select: {
+          status: true,
+        },
+      })
+      expect(prismaMock.task.update).toHaveBeenCalledWith({
+        where: {
+          id: 1,
+        },
+        data: {
+          status: TaskStatus.DONE,
+        },
       })
     })
   })

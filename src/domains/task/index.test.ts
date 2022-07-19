@@ -41,6 +41,7 @@ describe('domain/task', () => {
           deleted: true,
           id: true,
           priority: true,
+          status: true,
           subTasks: {
             orderBy: { priority: Direction.ASC },
             select: {

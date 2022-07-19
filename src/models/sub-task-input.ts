@@ -9,9 +9,6 @@ export class CreateSubTaskInput {
 
   @Field()
   taskId!: number
-
-  @Field(() => TaskStatus)
-  status!: TaskStatus
 }
 
 @InputType()
