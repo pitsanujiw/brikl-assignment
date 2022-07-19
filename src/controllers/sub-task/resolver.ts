@@ -2,7 +2,7 @@ import { SubTask as SubTaskModel } from '@prisma/client'
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql'
 
 import { CreateSubTaskInput, UpdateSubTaskInput, SubTask, OrderSubTaskInput } from '../../models'
-import * as subTaskService from '../../domain/sub-task'
+import * as subTaskService from '../../domains/sub-task'
 
 @Resolver(SubTask)
 export class SubTaskResolver {

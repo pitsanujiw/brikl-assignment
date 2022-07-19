@@ -2,7 +2,7 @@ import { Task as TaskModel } from '@prisma/client'
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql'
 
 import { TaskInput, Task, TaskConnection, UpdateTaskInput } from '../../models'
-import * as taskService from '../../domain/task'
+import * as taskService from '../../domains/task'
 
 @Resolver(Task)
 export class TaskResolver {

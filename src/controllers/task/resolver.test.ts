@@ -1,9 +1,19 @@
 import 'reflect-metadata'
 
 import { TaskResolver } from './resolver'
-import * as taskService from '../../domain/task'
+import * as taskService from '../../domains/task'
 
-jest.mock('../../domain/task', () => ({
+jest.mock('../../domains/task', () => ({
+  createTask: jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      id: 1,
+    }),
+  ),
+  deleteTask: jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      id: 1,
+    }),
+  ),
   getTasksPagination: jest.fn().mockImplementation(() =>
     Promise.resolve({
       total: 1,
@@ -14,17 +24,7 @@ jest.mock('../../domain/task', () => ({
       ],
     }),
   ),
-  createTask: jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      id: 1,
-    }),
-  ),
   updateTask: jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      id: 1,
-    }),
-  ),
-  deleteTask: jest.fn().mockImplementation(() =>
     Promise.resolve({
       id: 1,
     }),
