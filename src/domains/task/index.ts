@@ -2,7 +2,7 @@ import { Task } from '@prisma/client'
 
 import { Direction, ID, TaskConnection } from '../../types'
 import { prisma } from '../../database'
-import { TaskInput, UpdateTaskInput } from '../../models'
+import { OrderTaskInput, TaskInput, UpdateTaskInput } from '../../models'
 
 export async function getTasksPagination(offset: number, limit: number): Promise<TaskConnection> {
   const [total, results] = await prisma.$transaction([
@@ -23,6 +23,7 @@ export async function getTasksPagination(offset: number, limit: number): Promise
         createdAt: true,
         updatedAt: true,
         deleted: true,
+        priority: true,
         subTasks: {
           where: {
             deleted: false,
@@ -51,12 +52,37 @@ export async function getTasksPagination(offset: number, limit: number): Promise
   }
 }
 
-export function createTask(input: TaskInput): Promise<Task> {
+export async function createTask(input: TaskInput): Promise<Task> {
+  const latest = await prisma.task.count({
+    where: {
+      deleted: false,
+    },
+  })
+
   return prisma.task.create({
     data: {
       title: input.title,
+      priority: latest + 1,
     },
   })
+}
+
+export function orderTaskByTaskIds(subTasks: OrderTaskInput): Promise<ReadonlyArray<Task>> {
+  return prisma.$transaction(
+    subTasks.taskIds.map((taskId, index) =>
+      prisma.task.update({
+        where: {
+          id: taskId,
+        },
+        data: {
+          priority: index,
+        },
+        include: {
+          subTasks: true,
+        },
+      }),
+    ),
+  )
 }
 
 export function updateTask(input: UpdateTaskInput): Promise<Task> {

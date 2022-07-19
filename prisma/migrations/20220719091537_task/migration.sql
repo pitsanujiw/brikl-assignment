@@ -7,6 +7,7 @@ CREATE TABLE "task" (
     "title" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "priority" INTEGER NOT NULL,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "task_pkey" PRIMARY KEY ("id")

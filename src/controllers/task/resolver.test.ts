@@ -24,6 +24,13 @@ jest.mock('../../domains/task', () => ({
       ],
     }),
   ),
+  orderTaskByTaskIds: jest.fn().mockImplementation(() =>
+    Promise.resolve([
+      { id: 1, priority: 1 },
+      { id: 2, priority: 2 },
+    ]),
+  ),
+
   updateTask: jest.fn().mockImplementation(() =>
     Promise.resolve({
       id: 1,
@@ -90,6 +97,30 @@ describe('TaskResolver()', () => {
       const actual = await taskResolver.deleteTask(1)
       expect(actual).toEqual(expected)
       expect(taskService.deleteTask).toHaveBeenCalledWith(1)
+    })
+  })
+
+  describe('orderSubTask()', () => {
+    it('should return sub task when ordered', async () => {
+      const expected = [
+        {
+          id: 1,
+          priority: 1,
+        },
+        {
+          id: 2,
+          priority: 2,
+        },
+      ]
+
+      const actual = await taskResolver.orderSubTask({
+        taskIds: [1, 2],
+      })
+
+      expect(actual).toEqual(expected)
+      expect(taskService.orderTaskByTaskIds).toHaveBeenCalledWith({
+        taskIds: [1, 2],
+      })
     })
   })
 })

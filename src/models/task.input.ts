@@ -1,4 +1,6 @@
-import { Field, InputType } from 'type-graphql'
+import { Field, InputType, Int } from 'type-graphql'
+
+import { ID } from '../types'
 
 @InputType()
 export class TaskInput {
@@ -13,4 +15,10 @@ export class UpdateTaskInput {
 
   @Field()
   title!: string
+}
+
+@InputType()
+export class OrderTaskInput {
+  @Field(() => [Int])
+  taskIds!: ReadonlyArray<ID>
 }

@@ -1,7 +1,7 @@
 import { Task as TaskModel } from '@prisma/client'
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql'
 
-import { TaskInput, Task, TaskConnection, UpdateTaskInput } from '../../models'
+import { TaskInput, Task, TaskConnection, OrderTaskInput, UpdateTaskInput } from '../../models'
 import * as taskService from '../../domains/task'
 
 @Resolver(Task)
@@ -12,6 +12,11 @@ export class TaskResolver {
     @Arg('limit', { defaultValue: 10, nullable: true }) limit: number,
   ) {
     return taskService.getTasksPagination(offset, limit)
+  }
+
+  @Mutation(() => [Task])
+  orderSubTask(@Arg('input') input: OrderTaskInput): Promise<ReadonlyArray<TaskModel>> {
+    return taskService.orderTaskByTaskIds(input)
   }
 
   @Mutation(() => Task)

@@ -8,6 +8,7 @@ async function main() {
     data: [
       {
         title: 'brikl',
+        priority: 0,
       },
     ],
   })
