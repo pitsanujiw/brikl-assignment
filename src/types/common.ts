@@ -1,6 +1,6 @@
 export enum Direction {
-  ASC = 'ASC',
-  DESC = 'DESC',
+  ASC = 'asc',
+  DESC = 'desc',
 }
 
 export type ID = number
