@@ -41,7 +41,7 @@ async function main() {
         taskId: 1,
         title: 'Fine tuning',
         status: TaskStatus.IN_PROGRESS,
-        priority: 3,
+        priority: 4,
       },
     ],
   })

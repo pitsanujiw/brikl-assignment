@@ -7,7 +7,7 @@ CREATE TABLE "task" (
     "title" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "is_deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "task_pkey" PRIMARY KEY ("id")
 );
@@ -19,7 +19,7 @@ CREATE TABLE "sub_task" (
     "title" TEXT NOT NULL,
     "status" "TaskStatus" NOT NULL,
     "priority" INTEGER NOT NULL,
-    "is_deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
