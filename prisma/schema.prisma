@@ -16,6 +16,8 @@ model Task {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  deleted Boolean @default(false) @map("deleted")
+
   subTasks SubTask[]
 
   @@map("task")
@@ -23,11 +25,12 @@ model Task {
 
 model SubTask {
   id       Int        @id @default(autoincrement())
+  taskId   Int        @map("task_id")
   title    String
   status   TaskStatus
-  taskId   Int        @map("task_id")
   Task     Task       @relation(fields: [taskId], references: [id])
   priority Int
+  deleted  Boolean    @default(false) @map("deleted")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
