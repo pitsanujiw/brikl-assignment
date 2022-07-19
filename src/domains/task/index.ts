@@ -15,6 +15,9 @@ export async function getTasksPagination(offset: number, limit: number): Promise
       where: {
         deleted: false,
       },
+      orderBy: {
+        priority: Direction.ASC,
+      },
       take: limit,
       skip: offset,
       select: {

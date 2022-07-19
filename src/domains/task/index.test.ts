@@ -1,4 +1,5 @@
 import { prismaMock } from '../../mock/database'
+import { Direction } from '../../types'
 import * as taskService from './index'
 
 describe('domain/task', () => {
@@ -41,7 +42,7 @@ describe('domain/task', () => {
           id: true,
           priority: true,
           subTasks: {
-            orderBy: { priority: 'asc' },
+            orderBy: { priority: Direction.ASC },
             select: {
               createdAt: true,
               deleted: true,
@@ -60,6 +61,9 @@ describe('domain/task', () => {
         skip: 0,
         take: 10,
         where: { deleted: false },
+        orderBy: {
+          priority: Direction.ASC,
+        },
       })
     })
   })
