@@ -1,6 +1,6 @@
-import { Field, InputType } from 'type-graphql'
+import { Field, InputType, Int } from 'type-graphql'
 
-import { TaskStatus } from '../types'
+import { ID, TaskStatus } from '../types'
 
 @InputType()
 export class CreateSubTaskInput {
@@ -12,24 +12,12 @@ export class CreateSubTaskInput {
 
   @Field(() => TaskStatus)
   status!: TaskStatus
-
-  @Field()
-  priority!: number
-}
-
-@InputType()
-export class PrioritySubTaskInput {
-  @Field()
-  id!: number
-
-  @Field()
-  priority!: number
 }
 
 @InputType()
 export class OrderSubTaskInput {
-  @Field(() => [PrioritySubTaskInput])
-  orderSubTask!: ReadonlyArray<PrioritySubTaskInput>
+  @Field(() => [Int])
+  subTaskIds!: ReadonlyArray<ID>
 }
 
 @InputType()
@@ -45,7 +33,4 @@ export class UpdateSubTaskInput {
 
   @Field(() => TaskStatus)
   status!: TaskStatus
-
-  @Field()
-  priority!: number
 }

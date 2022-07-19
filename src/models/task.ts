@@ -2,7 +2,7 @@ import { Field, ObjectType } from 'type-graphql'
 
 import { ID } from '../types'
 import { BaseSchema } from './base-schema'
-import { SubTask } from './subtask'
+import { SubTask } from './sub-task'
 
 @ObjectType()
 export class Task extends BaseSchema {
