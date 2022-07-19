@@ -15,7 +15,7 @@ export class TaskResolver {
   }
 
   @Mutation(() => [Task])
-  orderSubTask(@Arg('input') input: OrderTaskInput): Promise<ReadonlyArray<TaskModel>> {
+  orderTask(@Arg('input') input: OrderTaskInput): Promise<ReadonlyArray<TaskModel>> {
     return taskService.orderTaskByTaskIds(input)
   }
 

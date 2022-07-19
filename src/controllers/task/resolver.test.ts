@@ -113,7 +113,7 @@ describe('TaskResolver()', () => {
         },
       ]
 
-      const actual = await taskResolver.orderSubTask({
+      const actual = await taskResolver.orderTask({
         taskIds: [1, 2],
       })
 
