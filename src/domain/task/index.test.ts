@@ -62,4 +62,73 @@ describe('domain/task', () => {
       })
     })
   })
+
+  describe('createTask()', () => {
+    it('should return created task', async () => {
+      const expected = { title: '__TITLE__' }
+
+      prismaMock.task.create.mockImplementationOnce(() => Promise.resolve(expected) as any)
+
+      const actual = await taskService.createTask({
+        title: '__TITLE__',
+      })
+
+      expect(actual).toEqual(expected)
+      expect(prismaMock.task.create).toHaveBeenCalledWith({
+        data: {
+          title: '__TITLE__',
+        },
+      })
+    })
+  })
+
+  describe('updateTask()', () => {
+    it('should return task when updated', async () => {
+      const expected = {
+        id: 1,
+        title: '__NEW_TITLE__',
+      }
+      prismaMock.task.update.mockImplementationOnce(() => Promise.resolve(expected) as any)
+
+      const actual = await taskService.updateTask({
+        id: 1,
+        title: '__NEW_TITLE__',
+      })
+
+      expect(actual).toEqual(expected)
+      expect(prismaMock.task.update).toHaveBeenCalledWith({
+        where: {
+          id: 1,
+        },
+        data: {
+          title: '__NEW_TITLE__',
+        },
+        include: {
+          subTasks: true,
+        },
+      })
+    })
+  })
+
+  describe('deleteTask()', () => {
+    it('should return task when deleted', async () => {
+      const expected = {
+        id: 1,
+        title: '__TITLE__',
+      }
+      prismaMock.task.update.mockImplementationOnce(() => Promise.resolve(expected) as any)
+
+      const actual = await taskService.deleteTask(1)
+
+      expect(actual).toEqual(expected)
+      expect(prismaMock.task.update).toHaveBeenCalledWith({
+        where: {
+          id: 1,
+        },
+        data: {
+          deleted: true,
+        },
+      })
+    })
+  })
 })
